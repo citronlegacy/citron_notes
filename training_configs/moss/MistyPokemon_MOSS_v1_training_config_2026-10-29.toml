@@ -1,0 +1,59 @@
+pretrained_model_name_or_path = "/models/moss/dit/diffusion_pytorch_model-00001-of-00003.safetensors"
+text_encoder = "/models/moss/text_encoder/model-00001-of-00004.safetensors"
+vae = "/models/moss/vae/diffusion_pytorch_model.safetensors"
+network_module = "networks.lora_generic"
+network_dim = 32
+network_alpha = 32
+network_train_unet_only = true
+learning_rate = 0.0001
+optimizer_type = "AdamW8bit"
+optimizer_args = [ "weight_decay=0.1", "betas=[0.9, 0.99]",]
+lr_scheduler = "cosine_with_restarts"
+lr_scheduler_num_cycles = 1
+lr_warmup_steps = 100
+max_train_epochs = 10
+train_batch_size = 1
+gradient_accumulation_steps = 1
+max_grad_norm = 1.0
+seed = 42
+timestep_sampling = "sigma"
+weighting_scheme = "logit_normal"
+logit_mean = -1.09
+logit_std = 0.95
+discrete_flow_shift = 1.0
+mixed_precision = "bf16"
+gradient_checkpointing = false
+cache_latents = true
+cache_text_encoder_outputs = true
+output_dir = "/lora_training/output/MistyPokemon_MOSS_v1"
+output_name = "MistyPokemon_MOSS_v1"
+save_model_as = "safetensors"
+save_precision = "bf16"
+save_every_n_epochs = 1
+save_last_n_epochs = 4
+shuffle_caption = false
+caption_extension = ".txt"
+tokenizer_cache_dir = "/models/moss/tokenizer"
+convrot_int8 = true
+compile = true
+compile_cache_size_limit = 32
+cuda_allow_tf32 = true
+cuda_cudnn_benchmark = true
+
+
+[[datasets]]
+resolution = 768
+[[datasets.subsets]]
+num_repeats = 15
+image_dir = "/lora_training/datasets/MistyPokemon_MOSS_v1"
+caption_extension = ".txt"
+caption_dropout_rate = 0.1
+
+
+[general]
+resolution = 768
+enable_bucket = true
+bucket_no_upscale = false
+bucket_reso_steps = 64
+min_bucket_reso = 256
+max_bucket_reso = 4096
